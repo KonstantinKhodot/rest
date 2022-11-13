@@ -13,8 +13,7 @@ class MobileBankApiTestV1 {
     void shouldReturnDemoAccounts() {
         // Given - When - Then
         // Предусловия
-        String charset;
-        ValidatableResponse usd = given()
+        given()
                 .baseUri("http://localhost:9999/api/v1")
                 // Выполняемые действия
                 .when()
@@ -22,11 +21,6 @@ class MobileBankApiTestV1 {
                 // Проверки
                 .then()
                 .statusCode(200)
-                .header("Content-Type", "application/json", "UTF-8")
-                .contentType(ContentType.JSON)
-                .body("", hasSize(3))
-                .body("[1].currency", equalTo("USD"))
-                .body("every { it.balance >=0}", is(true))
                 .body(matchesJsonSchemaInClasspath("accounts.schema.json"));
     }
 }
